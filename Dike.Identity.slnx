@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Dike.Identity.Api/Dike.Identity.Api.csproj" />
+    <Project Path="Dike.Identity.Core/Dike.Identity.Core.csproj" />
+    <Project Path="Dike.Identity.Providers.Cache/Dike.Identity.Providers.Cache.csproj" />
+    <Project Path="Dike.Identity.Providers.Jwt/Dike.Identity.Providers.Jwt.csproj" />
+    <Project Path="DikeIdentity.Providers.Persistence/Dike.Identity.Providers.Persistence.csproj" />
+  </Folder>
+</Solution>
