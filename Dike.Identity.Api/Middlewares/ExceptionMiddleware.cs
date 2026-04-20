@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
 using Dike.Identity.Core.Common;
+using Dike.Identity.Core.Enums;
+using Dike.Identity.Core.Interfaces.Services;
 
 namespace Dike.Identity.Api.Middlewares
 {
@@ -15,7 +17,7 @@ namespace Dike.Identity.Api.Middlewares
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, IAuditService auditService)
         {
             try
             {
@@ -23,8 +25,36 @@ namespace Dike.Identity.Api.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unhandled exception occurred.");
+                _logger.LogError(ex, "Ha ocurrido una excepcion no controlada en: {Path}", context.Request.Path);
+
+                await TryLogToDatabase(context, auditService, ex);
+
                 await HandleExceptionAsync(context, ex);
+            }
+        }
+
+        private async Task TryLogToDatabase(HttpContext context, IAuditService auditService, Exception ex)
+        {
+            try
+            {
+                var details = new
+                {
+                    exceptionType = ex.GetType().Name,
+                    stackTrace = ex.StackTrace,
+                    path = context.Request.Path.Value,
+                    method = context.Request.Method,
+                    query = context.Request.QueryString.Value
+                };
+
+                await auditService.SaveAuditAsync(
+                    action: "SYSTEM_EXCEPTION",
+                    severity: LogSeverity.error,
+                    details: details
+                );
+            }
+            catch (Exception dbEx)
+            {
+                _logger.LogCritical(dbEx, "ERROR CRITICO: No se pudo registrar la excepcion en la base de datos. Detalles del error original: {OriginalError}", context.Request.Path);
             }
         }
 

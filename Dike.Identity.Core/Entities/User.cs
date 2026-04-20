@@ -11,7 +11,7 @@ namespace Dike.Identity.Core.Entities
         public AuthProvider AuthProvider { get; set; }
         public string Name { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public StateStatus Status { get; set; }
+        public StateStatus State { get; set; }
         public bool EmailConfirmed { get; set; }
         public int FailedLoginAttempts { get; set; }
         public bool IsLocked { get; set; }

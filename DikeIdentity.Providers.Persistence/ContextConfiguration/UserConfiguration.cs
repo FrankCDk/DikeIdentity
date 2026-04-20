@@ -13,6 +13,10 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
 
             builder.HasKey(u => u.Id);
 
+            builder.Property(u => u.Id)
+                .HasColumnName("id")
+                .HasDefaultValueSql("gen_random_uuid()");
+
             builder.Property(u => u.Email)
                 .HasColumnName("email")
                 .HasMaxLength(120)
@@ -42,7 +46,7 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
                 .HasMaxLength(120)
                 .IsRequired();
 
-            builder.Property(u => u.Status)
+            builder.Property(u => u.State)
                 .HasColumnName("state")
                 .HasColumnType("state_type")
                 .HasDefaultValue(StateStatus.active)

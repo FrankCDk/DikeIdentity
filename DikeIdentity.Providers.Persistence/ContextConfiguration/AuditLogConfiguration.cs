@@ -1,7 +1,9 @@
-﻿using Dike.Identity.Core.Entities;
+﻿using System.Net;
+using Dike.Identity.Core.Entities;
 using Dike.Identity.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dike.Identity.Providers.Persistence.ContextConfiguration
 {
@@ -38,10 +40,16 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
                 .HasColumnName("details")
                 .HasColumnType("jsonb");
 
+            var ipConverter = new ValueConverter<string, IPAddress>(
+                v => IPAddress.Parse(v),                // De C# (string) a la DB (IPAddress)
+                v => v.ToString()                       // De la DB (IPAddress) a C# (string)
+            );
+
 
             builder.Property(l => l.IpAddress)
                 .HasColumnName("ip_address")
-                .HasColumnType("inet");
+                .HasColumnType("inet")
+                .HasConversion(ipConverter);
 
             builder.Property(l => l.UserAgent)
                 .HasColumnName("user_agent");

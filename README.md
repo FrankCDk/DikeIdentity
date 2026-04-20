@@ -20,6 +20,7 @@ La solución esta dividida en capas distintas para aplicar la separación de res
 	* `Providers.Persistence`: Maneja el acceso a datos usando **PostgreSQL**. Implementa un enfoque de ORM dual (Entity Framework Core para escrituras/cambios de estado, y Dapper para lecturas de alto rendimiento).
 	* `Providers.Jwt`: Encapsula la lógica para generar, firmar y validar los JSON Web Tokens (JWT) y Refresh Tokens.
 	* `Providers.Cache`: Gestiona la caché distribuida (ej. Redis) para optimizar lecturas de datos de alta frecuencia, como la validación de permisos.
+	* `Providers.Security`: Encapsula la lógica criptográfica del sistema. Implementa el algoritmo Argon2id para el hashing de contraseñas, asegurando que la seguridad de las credenciales sea resistente a ataques de hardware especializado (GPUs/ASICs) mediante el control de costo de memoria.
 
 * **`Dike.Identity.Api` (Capa de Presentación):**
   Una API RESTful que actúa como el punto de entrada al sistema. Maneja las peticiones HTTP, la validación de los datos de entrada (payloads), el enrutamiento y delega las operaciones de negocio al Core.
@@ -33,7 +34,7 @@ Para asegurar una calidad de nivel empresarial, el sistema implementa los siguie
 * **Preparado para Multi-Tenant (SaaS):** El esquema de la base de datos incluye la entidad `applications`, permitiendo que una sola instancia de DikeIdentity sirva como el Proveedor de Identidad centralizado para múltiples proyectos de software o entornos distintos.
 * **Rastro de Auditoría Inmutable:** Los eventos de seguridad (inicios de sesión, asignaciones de roles) se registran en una tabla `audit_logs` aprovechando el tipo de dato `JSONB` de PostgreSQL con indexación `GIN`, proporcionando consultas de altísima velocidad sobre detalles de logs no estructurados.
 * **Estandarización Global de Tiempo:** Todos los datos temporales se almacenan estrictamente en UTC utilizando `TIMESTAMPTZ` de PostgreSQL, eliminando los errores de conversión de zonas horarias y asegurando la consistencia global.
-* **Seguridad Criptográfica:** Las contraseñas nunca se almacenan en texto plano. El sistema utiliza **Argon2** para el hash seguro de contraseñas y estandariza el uso de `UUIDs` (v4) para todas las llaves primarias, previniendo ataques de enumeración de IDs.
+* **Seguridad Criptográfica (Argon2id):** Las contraseñas nunca se almacenan en texto plano. El sistema utiliza Argon2id (ganador de la Password Hashing Competition) configurado con parámetros de costo de memoria, iteraciones y paralelismo. Esta implementación incluye la generación de sal (salt) aleatoria por cada usuario y comparaciones en tiempo constante (FixedTimeEquals) para mitigar ataques de temporización.
 
 
 ## 🔐 Flujo de Autenticación y Seguridad (JWT - Json Web Token)
@@ -63,7 +64,9 @@ El proyecto está construido sobre el ecosistema moderno de Microsoft, priorizan
 * **Acceso a Datos (Dual-ORM):**
   * *Entity Framework Core:* Para migraciones, seguimiento de estado (Tracking) y escrituras complejas.
   * *Dapper:* Para consultas de lectura (Queries) de ultra-alta velocidad.
-* **Seguridad y Criptografía:** * Algoritmo de Hashing: **Argon2** (Estándar recomendado por OWASP).
+* **Seguridad y Criptografía:** 
+  * Algoritmo de Hashing: **Argon2** (Estándar recomendado por OWASP). Argon2id vía Konscious.Security.Cryptography.Argon2.
+  * Protección de Memoria: Configuración dinámica de Memory Cost y Parallelism para balancear seguridad y rendimiento del servidor.
   * Firmas de Tokens: **RS256** (Asimétrico con llaves públicas/privadas).
 * **Validación de Datos:** FluentValidation.
 
@@ -114,21 +117,4 @@ dotnet run --project src/Dike.Identity.Api/Dike.Identity.Api.csproj
 ```
 
 La documentación interactiva de la API estará disponible en: https://localhost:port/swagger
-
-
-### 🛣️ Roadmap (Próximos Pasos)
-El desarrollo de DikeIdentity está estructurado en fases incrementales:
-
-[x] Fase 0: Arquitectura y Diseño de Datos. (Esquema Multi-Tenant, RBAC, Logs Inmutables en PostgreSQL).
-
-[ ] Fase 1 (MVP): Núcleo de Identidad. Registro de usuarios locales, Login, validación de contraseñas con Argon2 y emisión de JWT/Refresh Tokens.
-
-[ ] Fase 2: Middleware de Seguridad. Implementación de políticas de autorización basadas en datos (RBAC) y registro automatizado en la tabla de audit_logs.
-
-[ ] Fase 3: Proveedores Externos. Integración del flujo de autorización OAuth2 para permitir inicio de sesión con Google y GitHub.
-
-[ ] Fase 4: DevOps. Dockerización completa de la API y la base de datos mediante docker-compose para un despliegue en 1-clic.
-
-
-
 

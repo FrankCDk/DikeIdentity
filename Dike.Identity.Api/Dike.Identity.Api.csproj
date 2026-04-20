@@ -9,14 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.1" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.25" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Dike.Identity.Core\Dike.Identity.Core.csproj" />
+    <ProjectReference Include="..\Dike.Identity.Providers.Cache\Dike.Identity.Providers.Cache.csproj" />
+    <ProjectReference Include="..\Dike.Identity.Providers.Jwt\Dike.Identity.Providers.Jwt.csproj" />
+    <ProjectReference Include="..\Dike.Identity.Providers.Security\Dike.Identity.Providers.Security.csproj" />
+    <ProjectReference Include="..\DikeIdentity.Providers.Persistence\Dike.Identity.Providers.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

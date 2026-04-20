@@ -1,13 +1,20 @@
 using Asp.Versioning;
+using Dike.Identity.Api.Configurations;
 using Dike.Identity.Api.Middlewares;
 using Dike.Identity.Core.Enums;
+using Dike.Identity.Providers.Jwt;
 using Dike.Identity.Providers.Persistence;
+using Dike.Identity.Providers.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+builder.Host.AddSerilogConfiguration(builder.Configuration);
+
+var connectionString = builder.Configuration.GetConnectionString("AuthDb") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 #region Creamos un DataSource de Npgsql y mapeamos todos tus Enums aquí
 var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
@@ -49,12 +56,17 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 // Add services to the container.
 
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddPersistenceInfrastructure();
+builder.Services.AddSecurityInfrastructure();
+builder.Services.AddJwtInfrastructure();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -64,6 +76,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<AuditMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
