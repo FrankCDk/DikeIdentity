@@ -17,7 +17,7 @@ namespace Dike.Identity.Api.Middlewares
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context, IAuditService auditService)
+        public async Task InvokeAsync(HttpContext context, IServiceProvider serviceProvider)
         {
             try
             {
@@ -27,34 +27,43 @@ namespace Dike.Identity.Api.Middlewares
             {
                 _logger.LogError(ex, "Ha ocurrido una excepcion no controlada en: {Path}", context.Request.Path);
 
-                await TryLogToDatabase(context, auditService, ex);
+                // 1. Extraemos los datos necesarios AHORA (antes de que el contexto muera)
+                var path = context.Request.Path.Value;
+                var method = context.Request.Method;
+                var query = context.Request.QueryString.Value;
 
-                await HandleExceptionAsync(context, ex);
-            }
-        }
-
-        private async Task TryLogToDatabase(HttpContext context, IAuditService auditService, Exception ex)
-        {
-            try
-            {
-                var details = new
+                // 2. Logueamos en segundo plano para no afectar el tiempo de respuesta
+                _ = Task.Run(async () =>
                 {
-                    exceptionType = ex.GetType().Name,
-                    stackTrace = ex.StackTrace,
-                    path = context.Request.Path.Value,
-                    method = context.Request.Method,
-                    query = context.Request.QueryString.Value
-                };
+                    using var scope = serviceProvider.CreateScope();
+                    var scopedAuditService = scope.ServiceProvider.GetRequiredService<IAuditService>();
 
-                await auditService.SaveAuditAsync(
-                    action: "SYSTEM_EXCEPTION",
-                    severity: LogSeverity.error,
-                    details: details
-                );
-            }
-            catch (Exception dbEx)
-            {
-                _logger.LogCritical(dbEx, "ERROR CRITICO: No se pudo registrar la excepcion en la base de datos. Detalles del error original: {OriginalError}", context.Request.Path);
+                    try
+                    {
+                        var details = new
+                        {
+                            exceptionType = ex.GetType().Name,
+                            stackTrace = ex.StackTrace,
+                            path,
+                            method,
+                            query
+                        };
+
+                        await scopedAuditService.SaveAuditAsync(
+                            action: "SYSTEM_EXCEPTION",
+                            severity: LogSeverity.error,
+                            details: details
+                        );
+                    }
+                    catch (Exception dbEx)
+                    {
+                        // Solo logueamos en consola si falla el log de DB en segundo plano
+                        Console.WriteLine($"Error guardando log de error: {dbEx.Message}");
+                    }
+                });
+                
+                // 3. Retornamos la respuesta al cliente
+                await HandleExceptionAsync(context, ex);
             }
         }
 

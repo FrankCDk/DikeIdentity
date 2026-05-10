@@ -9,7 +9,7 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("users"); 
+            builder.ToTable("users");
 
             builder.HasKey(u => u.Id);
 
@@ -69,6 +69,10 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
                .HasColumnType("boolean")
                .HasDefaultValue(false)
                .IsRequired();
+
+            builder.Property(u => u.LockoutEnd)
+                .HasColumnName("lockout_end")
+                .HasColumnType("timestampz");
 
             builder.Property(e => e.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(e => e.CreatedBy).HasColumnName("created_by");

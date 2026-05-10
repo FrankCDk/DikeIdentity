@@ -5,6 +5,10 @@ using Konscious.Security.Cryptography;
 
 namespace Dike.Identity.Providers.Security
 {
+
+    /// <summary>
+    /// Hasher de contraseña avanzado utilizando el algoritmo Argon2id, recomendado por OWASP para nuevas implementaciones.
+    /// </summary>
     public class Argon2PasswordHasher : IPasswordHasher
     {
         // Configuraciones recomendadas por OWASP (ajustadas para el MVP)

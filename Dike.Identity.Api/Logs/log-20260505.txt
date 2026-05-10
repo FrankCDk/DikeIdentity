@@ -1,0 +1,9 @@
+05/05/2026 22:32:10 [WRN] Failed to determine the https port for redirect.
+05/05/2026 22:32:10 [INF] HTTP GET / responded 404 in 521.1202 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger responded 301 in 2.1862 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/index.html responded 200 in 241.0453 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/swagger-ui.css responded 200 in 35.6680 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js responded 200 in 29.9962 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/swagger-ui-bundle.js responded 200 in 68.5992 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/favicon-32x32.png responded 200 in 0.4101 ms
+05/05/2026 22:32:18 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 230.4886 ms

@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Dike.Identity.Core.DTOs.Auth;
 using Dike.Identity.Core.Entities;
@@ -43,11 +44,22 @@ namespace Dike.Identity.Providers.Jwt
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
+            // 2. Generar el Refresh Token (Cadena aleatoria segura)
+            var refreshToken = GenerateSecureRandomToken();
+
             return new AuthResponse(
                 AccessToken: tokenString,
-                RefreshToken: Guid.NewGuid().ToString(), // MVP: Token aleatorio
+                RefreshToken: refreshToken,
                 Expiration: expiration
             );
+        }
+
+        private string GenerateSecureRandomToken()
+        {
+            var randomNumber = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

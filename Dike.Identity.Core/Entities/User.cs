@@ -15,6 +15,7 @@ namespace Dike.Identity.Core.Entities
         public bool EmailConfirmed { get; set; }
         public int FailedLoginAttempts { get; set; }
         public bool IsLocked { get; set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
         public DateTime CreatedAt { get; set; }
         public Guid? CreatedBy { get; set; }
         public DateTime? UpdatedAt { get; set; }

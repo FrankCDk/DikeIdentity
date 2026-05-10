@@ -15,6 +15,7 @@ namespace Dike.Identity.Providers.Persistence
             services.AddScoped<IAuditService, AuditService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             return services;
         }
 

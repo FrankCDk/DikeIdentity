@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using Dike.Identity.Core.DTOs.Auth;
 using Dike.Identity.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dike.Identity.Api.Controllers.v1
@@ -17,35 +18,6 @@ namespace Dike.Identity.Api.Controllers.v1
             _authService = authService;
         }
 
-        #region Register User
-        /// <summary>
-        /// Registro del usuario utilizando un método de seguridad estándar, que incluye hashing de contraseñas con bcrypt y validación básica.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost("register/classic")]
-        public async Task<IActionResult> RegisterClassic([FromBody] RegisterRequest request)
-        {
-            await _authService.RegisterStandardAsync(request);
-            return CreatedResponse(true, "Usuario registrado con seguridad estándar.");
-        }
-
-
-        /// <summary>
-        /// Registro del usuario utilizando el algoritmo de hashing Argon2id, que ofrece una mayor resistencia a ataques de fuerza bruta y 
-        /// es recomendado para aplicaciones que requieren un nivel adicional de seguridad.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost("register/hardened")]
-        public async Task<IActionResult> RegisterHardened([FromBody] RegisterRequest request)
-        {
-            await _authService.RegisterWithArgon2Async(request);
-            return CreatedResponse(true, "Usuario registrado con seguridad Argon2id.");
-        }
-        #endregion
-
-        #region Login
         /// <summary>
         /// JWT Clásico: Autenticación tradicional con email/username y contraseña, devolviendo un token JWT simple. Ideal para la mayoría de los casos de uso estándar.
         /// </summary>
@@ -70,7 +42,19 @@ namespace Dike.Identity.Api.Controllers.v1
             var result = await _authService.LoginWithArgon2Async(request);
             return SuccessResponse(result, "Autenticación de alta seguridad (Argon2id) exitosa.");
         }
-        #endregion
+    
+        /// <summary>
+        /// Refresh Token: Permite a los usuarios obtener un nuevo token de acceso utilizando un token de actualización válido, sin necesidad de volver a ingresar sus credenciales.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("refresh")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
+        {
+            var response = await _authService.RefreshTokenAsync(request);
+            return SuccessResponse(response, "Token refrescado exitosamente.");
+        }
 
     }
 }
