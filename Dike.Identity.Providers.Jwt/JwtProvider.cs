@@ -5,6 +5,7 @@ using System.Text;
 using Dike.Identity.Core.DTOs.Auth;
 using Dike.Identity.Core.Entities;
 using Dike.Identity.Core.Interfaces.Security;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Dike.Identity.Providers.Jwt
@@ -12,12 +13,24 @@ namespace Dike.Identity.Providers.Jwt
     public class JwtProvider : IJwtProvider
     {
 
-        // En un entorno real, cargarías la llave privada desde un archivo .pem o Key Vault
-        // Para el MVP, usaremos una llave generada en tiempo de ejecución o una simétrica temporal
-        private readonly byte[] _secretKey = Encoding.UTF8.GetBytes("EstaEsUnaLlaveSuperSecretaDe32Bytes!");
+        private readonly IConfiguration _configuration;
 
-        public AuthResponse GenerateTokens(User user)
+        public JwtProvider(IConfiguration configuration)
         {
+            _configuration = configuration;
+        }
+
+        public AuthResponse GenerateTokens(User user, string clientSecret, string keyId)
+        {
+
+            string issuer = _configuration["JwtSettings:Issuer"] ?? "DikeIdentity";
+            string audience = _configuration["JwtSettings:Audience"] ?? "DikeClients";
+
+            if (!int.TryParse(_configuration["JwtSettings:DurationInMinutes"], out int durationInMinutes))
+            {
+                durationInMinutes = 15;
+            }
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
@@ -27,24 +40,25 @@ namespace Dike.Identity.Providers.Jwt
                 new Claim("provider", user.AuthProvider.ToString())
             };
 
-            var expiration = DateTime.UtcNow.AddMinutes(15);
-
-            // Por ahora, usaremos firma simétrica (HS256) para que puedas probarlo YA.
-            // Cambiar a RS256 requiere cargar un archivo .pem (podemos hacerlo en el siguiente paso).
-            var key = new SymmetricSecurityKey(_secretKey);
+            var expiration = DateTime.UtcNow.AddMinutes(durationInMinutes);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(clientSecret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
-                issuer: "DikeIdentity",
-                audience: "DikeClients",
+
+            var header = new JwtHeader(creds);
+            header["kid"] = keyId;
+
+            var payload = new JwtPayload(
+                issuer: issuer,
+                audience: audience,
                 claims: claims,
-                expires: expiration,
-                signingCredentials: creds
+                notBefore: null,
+                expires: expiration
             );
 
+            var token = new JwtSecurityToken(header, payload);
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-            // 2. Generar el Refresh Token (Cadena aleatoria segura)
             var refreshToken = GenerateSecureRandomToken();
 
             return new AuthResponse(
@@ -52,6 +66,7 @@ namespace Dike.Identity.Providers.Jwt
                 RefreshToken: refreshToken,
                 Expiration: expiration
             );
+
         }
 
         private string GenerateSecureRandomToken()

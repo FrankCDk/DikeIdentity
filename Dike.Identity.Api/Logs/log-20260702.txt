@@ -1,0 +1,14 @@
+02/07/2026 09:01:49 [INF] HTTP GET /swagger/index.html responded 200 in 319.3610 ms
+02/07/2026 09:01:50 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 15.8650 ms
+02/07/2026 09:02:56 [INF] HTTP POST /api/v1/Applications/sync responded 401 in 4028.8184 ms
+02/07/2026 09:03:42 [INF] HTTP POST /api/v1/Applications/sync responded 401 in 36350.2641 ms
+02/07/2026 09:03:53 [INF] HTTP POST /api/v1/Applications/sync responded 200 in 2302.4465 ms
+02/07/2026 13:54:20 [INF] HTTP POST /api/v1/application/sync responded 404 in 74.9078 ms
+02/07/2026 13:55:55 [INF] HTTP POST /api/v1/applications/sync responded 200 in 28089.6038 ms
+02/07/2026 14:23:48 [INF] HTTP GET /swagger/index.html responded 200 in 223.6439 ms
+02/07/2026 14:23:48 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 19.9388 ms
+02/07/2026 15:31:25 [INF] HTTP POST /api/v1/applications/sync responded 200 in 5429.9945 ms
+02/07/2026 15:31:55 [INF] HTTP POST /api/v1/applications/sync responded 200 in 170.4997 ms
+02/07/2026 15:32:47 [INF] HTTP POST /api/v1/applications/sync responded 200 in 21857.1298 ms
+02/07/2026 15:33:17 [INF] HTTP POST /api/v1/applications/sync responded 200 in 162.7454 ms
+02/07/2026 15:33:25 [INF] HTTP POST /api/v1/Applications/sync responded 200 in 155.1980 ms

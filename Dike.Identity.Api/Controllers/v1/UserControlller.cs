@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dike.Identity.Api.Controllers.v1
 {
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class UserController : BaseController
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
 
@@ -23,8 +25,16 @@ namespace Dike.Identity.Api.Controllers.v1
         [HttpPost("register/classic")]
         public async Task<IActionResult> RegisterClassic([FromBody] RegisterRequest request)
         {
-            var userId = await _userService.RegisterStandardAsync(request);
-            return CreatedResponse(new { id = userId }, "Usuario registrado con seguridad estándar.");
+            var response = await _userService.RegisterStandardAsync(request);
+
+            if (!response.Success)
+            {
+                return BadRequest(response); // Retorna 400 con el objeto Error estructurado
+            }
+
+            // Retorna 200 Ok con la data (el Guid del usuario) y el mensaje de éxito
+            return Ok(response);
+
         }
 
 
@@ -37,8 +47,15 @@ namespace Dike.Identity.Api.Controllers.v1
         [HttpPost("register/hardened")]
         public async Task<IActionResult> RegisterHardened([FromBody] RegisterRequest request)
         {
-            var userId = await _userService.RegisterWithArgon2Async(request);
-            return CreatedResponse(new { id = userId }, "Usuario registrado con seguridad Argon2id.");
+            var response = await _userService.RegisterWithArgon2Async(request);
+
+            if (!response.Success)
+            {
+                return BadRequest(response); // Retorna 400 con el objeto Error estructurado
+            }
+
+            // Retorna 200 Ok con la data (el Guid del usuario) y el mensaje de éxito
+            return Ok(response);
         }
 
     }

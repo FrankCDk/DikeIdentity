@@ -2,6 +2,7 @@
 using Dike.Identity.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static Dapper.SqlMapper;
 
 namespace Dike.Identity.Providers.Persistence.ContextConfiguration
 {
@@ -31,22 +32,24 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
                 .HasColumnName("secret_hash")
                 .IsRequired();
 
-            builder.Property(a => a.RedirectUri)
-                .HasColumnName("redirect_uri");
-
             builder.Property(a => a.Status)
                 .HasColumnName("status")
                 .HasColumnType("state_type")
                 .HasDefaultValue(StateStatus.active)
                 .IsRequired();
 
-            builder.Property(e => e.CreatedAt).HasColumnName("created_at").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(e => e.CreatedAt).HasColumnName("created_at")
+                .HasColumnType("timestamp")
+                .HasDefaultValueSql("LOCALTIMESTAMP");
             builder.Property(e => e.CreatedBy).HasColumnName("created_by");
-            builder.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            builder.Property(e => e.UpdatedAt).HasColumnName("updated_at")
+                .HasColumnType("timestamp")
+                .HasDefaultValueSql("LOCALTIMESTAMP"); ;
             builder.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
             builder.HasIndex(a => a.Code).IsUnique();
             builder.HasIndex(a => a.Name).IsUnique();
+
         }
     }
 }

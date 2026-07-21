@@ -20,30 +20,47 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
             .HasColumnName("user_id")
             .IsRequired();
 
+        builder.Property(t => t.ApplicationId)
+            .HasColumnName("application_id")
+            .IsRequired();
+
         builder.Property(t => t.Token)
             .HasColumnName("token")
             .IsRequired();
 
         builder.Property(t => t.ExpiresAt)
             .HasColumnName("expires_at")
-            .HasColumnType("timestamptz")
+            .HasColumnType("timestampt")
             .IsRequired();
 
         builder.Property(t => t.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("timestamptz")
-            .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            .HasColumnType("timestampt")
+            .HasDefaultValueSql("LOCALTIMESTAMP");
 
         builder.Property(t => t.RevokedAt)
             .HasColumnName("revoked_at")
-            .HasColumnType("timestamptz");
+            .HasColumnType("timestampt");
 
         // Relación con la tabla Users
         builder.HasOne(t => t.User)
             .WithMany() // Un usuario puede tener muchos refresh tokens (varias sesiones)
             .HasForeignKey(t => t.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        // Relación con la tabla Applications
+        builder.HasOne(t => t.Application)
+            .WithMany()
+            .HasForeignKey(t => t.ApplicationId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasIndex(t => t.Token).IsUnique();
+        // Índices Mapeados de tu SQL
+        builder.HasIndex(t => t.Token)
+            .HasDatabaseName("idx_user_refresh_tokens_token")
+            .IsUnique();
+
+        // ◄ NUEVO: Agregamos el índice compuesto para búsquedas óptimas por Usuario y App
+        builder.HasIndex(t => new { t.UserId, t.ApplicationId })
+            .HasDatabaseName("idx_user_refresh_tokens_user_app");
     }
 }

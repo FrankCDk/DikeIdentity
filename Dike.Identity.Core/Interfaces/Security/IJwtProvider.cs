@@ -5,6 +5,6 @@ namespace Dike.Identity.Core.Interfaces.Security
 {
     public interface IJwtProvider
     {
-        AuthResponse GenerateTokens(User user);
+        AuthResponse GenerateTokens(User user, string clientSecret, string keyId);
     }
 }

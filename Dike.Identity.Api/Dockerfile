@@ -1,29 +1,43 @@
-# Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
-
-# Esta fase se usa cuando se ejecuta desde VS en modo rápido (valor predeterminado para la configuración de depuración)
+# Fase 1: Base de ejecución
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
+USER root
 WORKDIR /app
+# Exponemos ambos puertos
 EXPOSE 8080
 EXPOSE 8081
 
+# Configuración HTTPS Local
+ENV ASPNETCORE_URLS="https://+:8081;http://+:8080"
+ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.dotnet/https/dike_dev_cert.pfx
+ENV ASPNETCORE_Kestrel__Certificates__Default__Password="Frank1234"
 
-# Esta fase se usa para compilar el proyecto de servicio
+# Fase 2: Compilación de la solución completa
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
+# Copiamos todos los archivos de definición de proyectos (.csproj) respetando las carpetas hermanos
 COPY ["Dike.Identity.Api/Dike.Identity.Api.csproj", "Dike.Identity.Api/"]
-RUN dotnet restore "./Dike.Identity.Api/Dike.Identity.Api.csproj"
+COPY ["Dike.Identity.Core/Dike.Identity.Core.csproj", "Dike.Identity.Core/"]
+COPY ["Dike.Identity.Providers.Cache/Dike.Identity.Providers.Cache.csproj", "Dike.Identity.Providers.Cache/"]
+COPY ["Dike.Identity.Providers.Jwt/Dike.Identity.Providers.Jwt.csproj", "Dike.Identity.Providers.Jwt/"]
+COPY ["DikeIdentity.Providers.Persistence/Dike.Identity.Providers.Persistence.csproj", "Dike.Identity.Providers.Persistence/"]
+COPY ["Dike.Identity.Providers.Security/Dike.Identity.Providers.Security.csproj", "Dike.Identity.Providers.Security/"]
+
+# Restauramos las dependencias desde el proyecto ejecutable principal
+RUN dotnet restore "Dike.Identity.Api/Dike.Identity.Api.csproj"
+
+# Copiamos el resto del código fuente de todas las capas
 COPY . .
 WORKDIR "/src/Dike.Identity.Api"
-RUN dotnet build "./Dike.Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Dike.Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
+# Fase 3: Publicación de artefactos optimizados
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Dike.Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Dike.Identity.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
+# Fase 4: Imagen Final armada
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

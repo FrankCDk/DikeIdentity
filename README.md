@@ -72,7 +72,7 @@ El proyecto está construido sobre el ecosistema moderno de Microsoft, priorizan
 
 ---
 
-## ⚙️ Configuración y Ejecución Local
+## ⚙️ Configuraci��n y Ejecuci��n Local
 
 Para levantar el proyecto en tu entorno local, sigue estos pasos:
 
@@ -114,6 +114,25 @@ Puedes iniciar la API usando Visual Studio, Rider, o mediante la CLI de .NET:
 ```bash
 dotnet build
 dotnet run --project src/Dike.Identity.Api/Dike.Identity.Api.csproj
+```
+
+Comandos Docker a ejecutar:
+
+```bash
+
+docker build -t dike-identity-api -f Dike.Identity.Api/Dockerfile .
+
+docker run -d -p 7000:8080 -p 7001:8081 -v "$env:USERPROFILE\.dotnet\corefx\cryptography\x506:/root/.dotnet/https" --name dike-identity-container dike-identity-api
+
+# 1. Detener el contenedor actual
+docker stop dike-identity-container
+
+# 2. Eliminar el contenedor
+docker rm dike-identity-container
+
+# 3. Eliminar la imagen vieja para asegurarnos de que no use cach�� desactualizado
+docker rmi dike-identity-api
+
 ```
 
 La documentación interactiva de la API estará disponible en: https://localhost:port/swagger

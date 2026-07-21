@@ -28,6 +28,8 @@ namespace Dike.Identity.Providers.Persistence.Repositories
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _dbContext.Users
+                .Include(u => u.UserApplications)
+                    .ThenInclude(ua => ua.Role)
                 .FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpper());
         }
 

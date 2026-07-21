@@ -17,9 +17,6 @@ CREATE INDEX "IX_roles_normalized_name" ON roles(normalized_name);
 -- Se le puede agregar un CONCURRENTLY para que se ejecute la creación en segundo plano.
 
 
-
-
-
 CREATE TYPE action_type AS ENUM('read', 'create', 'update', 'delete', 'manage'); -- Tipos de acciones
 CREATE TYPE resource_type AS ENUM('user', 'role', 'token', 'audit', 'system'); -- Tipo de recurso del permiso
 CREATE TABLE permissions (
@@ -38,9 +35,6 @@ CREATE TABLE permissions (
 COMMENT ON TABLE permissions IS 'Tabla para gestionar los permisos de uso.';
 
 
-
-
-
 CREATE TABLE role_permissions (
     role_id UUID NOT NULL,
     permission_id UUID NOT NULL,
@@ -57,18 +51,43 @@ COMMENT ON TABLE role_permissions IS 'Tabla para gestionar los permisos de uso.'
 
 
 CREATE TABLE applications (
-	id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-	code CHAR(5) UNIQUE NOT NULL, -- Código del proyecto
-	name VARCHAR(100) UNIQUE NOT NULL,
-	secret_hash TEXT NOT NULL, -- Clave secreta que la app conoce
-	redirect_uri TEXT, --  URL a la que se redirige despues del login
-	status state_type NOT NULL DEFAULT 'active',
-	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	created_by UUID NULL,
-	updated_at TIMESTAMPTZ NULL,
-	updated_by UUID NULL
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code VARCHAR(20) UNIQUE NOT NULL, -- Código corto identificativo (ej: 'CRM', 'MKT')
+    name VARCHAR(100) UNIQUE NOT NULL,
+    secret_hash TEXT NOT NULL,        -- Hash del secreto/clave de la app
+    status state_type NOT NULL DEFAULT 'active',
+    created_at TIMESTAMPT NOT NULL DEFAULT LOCALTIMESTAMP,
+    created_by UUID NULL,
+    updated_at TIMESTAMPTZ NULL,
+    updated_by UUID NULL
 );
 
+CREATE TABLE application_redirect_uris (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    application_id UUID NOT NULL,
+    redirect_uri TEXT NOT NULL,
+    description VARCHAR(100) NULL, -- Ej: 'Localhost Desarrollo', 'Producción'
+    created_at TIMESTAMPT NOT NULL DEFAULT LOCALTIMESTAMP,
+    
+    CONSTRAINT fk_application_redirect FOREIGN KEY (application_id) 
+        REFERENCES applications(id) ON DELETE CASCADE
+);
+
+-- Índice para validar rápidamente si una URI de redirección enviada pertenece a la app
+CREATE INDEX idx_app_redirect_uri ON application_redirect_uris(application_id, redirect_uri);
+
+CREATE TABLE application_cors_origins (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    application_id UUID NOT NULL,
+    origin_url TEXT NOT NULL, -- Ej: 'http://localhost:4200', 'https://mi-app.com'
+    created_at TIMESTAMPT NOT NULL DEFAULT LOCALTIMESTAMP,
+    
+    CONSTRAINT fk_application_cors FOREIGN KEY (application_id) 
+        REFERENCES applications(id) ON DELETE CASCADE
+);
+
+-- Índice para consultas de CORS ultra rápidas por aplicación
+CREATE INDEX idx_app_cors_origin ON application_cors_origins(application_id);
 
 CREATE TYPE auth_provider_type AS ENUM('local', 'google', 'github');
 CREATE TABLE users (
@@ -102,7 +121,7 @@ CREATE INDEX "IX_users_normalized_email" ON users(normalized_email);
 
 
 
-	CREATE TABLE user_applications (
+CREATE TABLE user_applications (
 	user_id UUID NOT NULL,
 	application_id UUID NOT NULL,
 	role_id UUID NOT NULL, -- El rol se asignara por aplicación
@@ -121,7 +140,34 @@ CREATE INDEX "IX_users_normalized_email" ON users(normalized_email);
     CONSTRAINT fk_role FOREIGN KEY (role_id) 
         REFERENCES roles(id) ON DELETE RESTRICT
 );
+-- Índice para búsquedas invertidas (de aplicación hacia usuarios)
+CREATE INDEX idx_user_applications_app ON user_applications(application_id);
 COMMENT ON TABLE user_applications IS 'Define a qué proyectos tiene acceso un usuario y qué rol tiene en cada uno.';
+
+
+CREATE TABLE user_refresh_tokens (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL,
+    application_id UUID NOT NULL, -- ◄ El nuevo campo para segmentar por aplicación
+    token TEXT NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT LOCALTIMESTAMP,
+    revoked_at TIMESTAMP NULL,
+
+    -- Relaciones / Llaves Foráneas
+    CONSTRAINT fk_refresh_token_user FOREIGN KEY (user_id) 
+        REFERENCES users(id) ON DELETE CASCADE,
+        
+    CONSTRAINT fk_refresh_token_application FOREIGN KEY (application_id) 
+        REFERENCES applications(id) ON DELETE CASCADE
+);
+
+-- Comentario descriptivo para mantener documentada la base de datos
+COMMENT ON TABLE user_refresh_tokens IS 'Almacena los tokens de actualización vinculados por usuario y aplicación cliente.';
+
+-- Índices recomendados para que las búsquedas de tokens sean instantáneas
+CREATE UNIQUE INDEX idx_user_refresh_tokens_token ON user_refresh_tokens(token);
+CREATE INDEX idx_user_refresh_tokens_user_app ON user_refresh_tokens(user_id, application_id);
 
 
 

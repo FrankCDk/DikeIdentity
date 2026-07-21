@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dike.Identity.Api.Controllers.v1
 {
 
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    public class AuthController : BaseController
+    [ApiController]
+    public class AuthController : ControllerBase
     {
 
         private readonly IAuthService _authService;
@@ -26,9 +28,14 @@ namespace Dike.Identity.Api.Controllers.v1
         public async Task<IActionResult> LoginClassic([FromBody] LoginRequest request)
         {
             var result = await _authService.LoginStandardAsync(request);
-            return SuccessResponse(result, "Autenticación estándar exitosa.");
-        }
 
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
 
         /// <summary>
         /// Argon2id: Autenticación de alta seguridad utilizando el algoritmo de hashing Argon2id para proteger las contraseñas. 
@@ -40,7 +47,13 @@ namespace Dike.Identity.Api.Controllers.v1
         public async Task<IActionResult> LoginHardened([FromBody] LoginRequest request)
         {
             var result = await _authService.LoginWithArgon2Async(request);
-            return SuccessResponse(result, "Autenticación de alta seguridad (Argon2id) exitosa.");
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     
         /// <summary>
@@ -52,8 +65,14 @@ namespace Dike.Identity.Api.Controllers.v1
         [AllowAnonymous]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
         {
-            var response = await _authService.RefreshTokenAsync(request);
-            return SuccessResponse(response, "Token refrescado exitosamente.");
+            var result = await _authService.RefreshTokenAsync(request);
+
+            if (!result.Success)
+            {
+                return Unauthorized(result);
+            }
+
+            return Ok(result);
         }
 
     }

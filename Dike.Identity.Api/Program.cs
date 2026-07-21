@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Dike.Identity.Api.Configurations;
 using Dike.Identity.Api.Middlewares;
+using Dike.Identity.Core;
 using Dike.Identity.Core.Enums;
 using Dike.Identity.Providers.Jwt;
 using Dike.Identity.Providers.Persistence;
@@ -24,7 +25,11 @@ dataSourceBuilder.MapEnum<PermissionResource>("resource_type");
 dataSourceBuilder.MapEnum<AuthProvider>("auth_provider_type");
 dataSourceBuilder.MapEnum<LogSeverity>("log_severity");
 var dataSource = dataSourceBuilder.Build();
-builder.Services.AddDbContext<IdentityDbContext>(options => options.UseNpgsql(dataSource));
+//builder.Services.AddDbContext<IdentityDbContext>(options => options.UseNpgsql(dataSource));
+builder.Services.AddDbContext<IdentityDbContext>(options =>
+    options.UseNpgsql(dataSource, npgsqlOptions =>
+        npgsqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
+    ));
 #endregion
 
 #region Configuración de versionado de la API
@@ -58,6 +63,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddPersistenceInfrastructure();
+builder.Services.AddCoreServices();
 builder.Services.AddSecurityInfrastructure();
 builder.Services.AddJwtInfrastructure();
 builder.Services.AddControllers();
@@ -74,6 +80,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.UseSwagger();
+//app.UseSwaggerUI();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<AuditMiddleware>();

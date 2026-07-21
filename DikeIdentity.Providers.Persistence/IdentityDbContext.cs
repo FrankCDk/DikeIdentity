@@ -8,6 +8,8 @@ namespace Dike.Identity.Providers.Persistence
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options){}
 
         public DbSet<Application> Applications { get; set; }
+        public DbSet<ApplicationCorsOrigins> ApplicationCorsOrigins { get; set; }
+        public DbSet<ApplicationRedirectUris> ApplicationRedirectUris { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }

@@ -9,6 +9,12 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
 {
     public class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
     {
+
+        IPAddress ParsearIpSegura(string ipString)
+        {
+            return IPAddress.TryParse(ipString, out var ip) ? ip : IPAddress.Loopback;
+        }
+
         public void Configure(EntityTypeBuilder<AuditLog> builder)
         {
             builder.ToTable("audit_logs");
@@ -41,8 +47,8 @@ namespace Dike.Identity.Providers.Persistence.ContextConfiguration
                 .HasColumnType("jsonb");
 
             var ipConverter = new ValueConverter<string, IPAddress>(
-                v => IPAddress.Parse(v),                // De C# (string) a la DB (IPAddress)
-                v => v.ToString()                       // De la DB (IPAddress) a C# (string)
+                v => ParsearIpSegura(v),  // De C# (string) a la DB (IPAddress)
+                v => v.ToString()         // De la DB (IPAddress) a C# (string)
             );
 
 

@@ -71,47 +71,52 @@ namespace Dike.Identity.Api.Middlewares
         {
             context.Response.ContentType = "application/json";
 
-            var (statusCode, message, internalCode, errors) = exception switch
+            var (statusCode, error) = exception switch
             {
 
                 // Caso: Errores de validación (FluentValidation)
                 FluentValidation.ValidationException valEx => (
                     HttpStatusCode.BadRequest,
-                    "Se encontraron errores de validación.",
-                    InternalCodes.ValidationError,
-                    valEx.Errors
+                    new Error(
+                    code: "SYS_VAL_001", // Código interno para fallos de validación
+                    message: "Se encontraron errores de validación.",
+                    validationErrors: valEx.Errors
                         .GroupBy(e => e.PropertyName)
                         .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray())
+                    )                
                 ),
 
                 // Caso: Errores de negocio creados por ti
                 IdentityException idEx => (
                     HttpStatusCode.BadRequest,
-                    idEx.Message,
-                    idEx.InternalCode,
-                    null
+                    new Error(
+                        code: idEx.InternalCode ?? "SYS_BUS_001",
+                        message: idEx.Message
+                    )
                 ),
 
                 // Caso: No encontrado
                 KeyNotFoundException => (
                     HttpStatusCode.NotFound,
-                    "El recurso solicitado no existe.",
-                    InternalCodes.NotFound,
-                    null
+                    new Error(
+                        code: "SYS_NOT_FOUND",
+                        message: "El recurso solicitado no existe."
+                    )
                 ),
 
                 // Caso: Error catastrófico (Default)
                 _ => (
                     HttpStatusCode.InternalServerError,
-                    "Ocurrió un error inesperado en el servidor.", // Mensaje genérico por seguridad
-                    InternalCodes.GenericError,
-                    null
+                    new Error(
+                        code: "SYS_GENERIC_ERROR",
+                        message: "Ocurrió un error inesperado en el servidor."
+                    )
                 )
             };
 
             context.Response.StatusCode = (int)statusCode;
 
-            var response = BaseResponse<object>.Failure(internalCode, message, errors);
+            var response = Response<object>.Failure(error);
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             return context.Response.WriteAsync(JsonSerializer.Serialize(response, options));
         }
