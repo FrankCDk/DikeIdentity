@@ -44,10 +44,12 @@ namespace Dike.Identity.Core.UseCases
                 return Response<Guid>.Failure(UserErrors.EmailAlreadyExists);
             }
 
+            var userId = Guid.NewGuid();
+
             // 2. Mapear DTO a Entidad
             var user = new User
             {
-                Id = Guid.NewGuid(),
+                Id = userId,
                 Email = request.Email.ToLower().Trim(),
                 NormalizedEmail = request.Email.ToUpper().Trim(),
                 Name = request.Name,
@@ -55,7 +57,19 @@ namespace Dike.Identity.Core.UseCases
                 AuthProvider = provider,
                 State = StateStatus.active,
                 CreatedAt = DateTime.UtcNow,
-                PasswordHash = hasher.HashPassword(request.Password)
+                PasswordHash = hasher.HashPassword(request.Password),
+                UserApplications = new List<UserApplication>()
+                {
+                    new UserApplication
+                    {
+                        UserId = userId,
+                        ApplicationId = request.ApplicationId,
+                        RoleId = request.RoleId,
+                        Status = StateStatus.active,
+                        AssignedAt = DateTime.UtcNow,
+                        AssignedBy = null // Asignar el ID del usuario que realiza la asignación si es necesario
+                    }
+                }
             };
 
             // 4. Persistir en Base de Datos

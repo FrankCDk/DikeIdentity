@@ -4,6 +4,8 @@
         string Email,
         string Password,
         string Name,
-        string LastName
+        string LastName,
+        Guid ApplicationId,
+        Guid RoleId
     );
 }

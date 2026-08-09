@@ -11,6 +11,7 @@ namespace Dike.Identity.Core
             services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IRoleService, RoleService>();
             return services;
         }
     }
