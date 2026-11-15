@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/docs/" />
+  <Folder Name="/docs/01-analisis/">
+    <File Path="Analisis_Dominio.md" />
+    <File Path="Definicion_Funcional.md" />
+    <File Path="Requerimientos.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="Dike.Identity.API/Dike.Identity.API.csproj" Id="253d0f0d-64fd-41ba-89f3-3db0ab89592d" />
+    <Project Path="Dike.Identity.Application/Dike.Identity.Application.csproj" Id="d5f95c46-2b91-4643-b74c-933ce2d4523b" />
+    <Project Path="Dike.Identity.Domain/Dike.Identity.Domain.csproj" Id="702797a4-b031-4152-8834-368efa77eef7" />
+    <Project Path="Dike.Identity.Infrastructure/Dike.Identity.Infrastructure.csproj" Id="e8f48357-33a1-45ee-acdb-bbd77b784e64" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="Dike.Identity.Tests/Dike.Identity.Tests.csproj" Id="e327cacb-4e78-4cff-a352-00404961bf3f" />
+  </Folder>
+</Solution>

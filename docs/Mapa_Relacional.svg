@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3360" height="2780" viewBox="0 0 3360 2780"><title>Mapa relacional de Dike Identity</title><desc>19 tablas sin campos. Relaciones de dominio, Identity e integración, con auditoría ampliada.</desc><rect width="3360" height="2780" fill="#F4F7FB"/>
+<text x='70' y='66.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#3165A0'>DIKE IDENTITY</text>
+<text x='70' y='139.24' font-family='Segoe UI,Arial,sans-serif' font-size='54' font-weight='700' fill='#142C49'>Mapa relacional de tablas</text>
+<text x='73' y='182.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='400' fill='#52647C'>Modelo propuesto para Code First  /  ASP.NET Core Identity + PostgreSQL  /  Sin campos</text>
+<rect x='2480' y='68' width='800' height='108' fill='#FFFFFF' stroke='#DBE4EF' stroke-width='2'/>
+<text x='2502' y='112.62' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#142C49'>19 TABLAS</text>
+<text x='2502' y='151.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#52647C'>1 : 0..N  uno a muchos     1 : 0..1  opcional</text>
+<text x='73' y='238.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#52647C'>Cada línea indica una relación; la etiqueta expresa sus cardinalidades.</text>
+<rect x='60' y='280' width='1040' height='1470' fill='#F9FBFE' stroke='#DCE5F1' stroke-width='2'/>
+<rect x='1145' y='280' width='1095' height='1470' fill='#F8FCFC' stroke='#D7E9EA' stroke-width='2'/>
+<rect x='2285' y='280' width='1015' height='1470' fill='#FCFAFE' stroke='#E6DDF1' stroke-width='2'/>
+<text x='88' y='335.62' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#2563AB'>01  USUARIOS E IDENTITY</text>
+<text x='1173' y='335.62' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#087F8C'>02  APLICACIONES Y ACCESO</text>
+<text x='2313' y='335.62' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#8056AD'>03  ADMINISTRACIÓN</text>
+<polyline points='620,453 565,453 565,703 510,703' fill='none' stroke='#2563AB' stroke-width='3' stroke-linejoin='round' />
+<polyline points='565,703 565,913 510,913' fill='none' stroke='#2563AB' stroke-width='3' stroke-linejoin='round' />
+<polyline points='565,913 565,1123 510,1123' fill='none' stroke='#2563AB' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1040,453 1118,453 1118,913 1240,913' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1450,516 1450,850' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1450,976 1450,1080 830,1080 830,1240' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='830,1366 830,1490' fill='none' stroke='#2563AB' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1660,453 1720,453 1770,453' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1720,453 1720,703 1770,703' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1720,703 1720,913 1770,913' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='1980,976 1980,1240' fill='none' stroke='#087F8C' stroke-width='3' stroke-linejoin='round' />
+<polyline points='2820,453 2895,453 2895,703 2820,703' fill='none' stroke='#8056AD' stroke-width='3' stroke-linejoin='round' />
+<polyline points='2895,703 2895,913 2820,913' fill='none' stroke='#8056AD' stroke-width='3' stroke-linejoin='round' />
+<polyline points='2895,913 2895,1123 2820,1123' fill='none' stroke='#8056AD' stroke-width='3' stroke-linejoin='round' />
+<polyline points='2400,453 2334,453 2334,1303 2400,1303' fill='none' stroke='#8056AD' stroke-width='3' stroke-linejoin='round' />
+<polyline points='2610,1366 2610,1490' fill='none' stroke='#8056AD' stroke-width='3' stroke-linejoin='round' />
+<rect x='625' y='397' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='620' y='390' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='620' y='390' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='640' y='435.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Usuarios</text>
+<text x='640' y='468.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>usuarios.AspNetUsers</text>
+<text x='640' y='498.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>IDENTITY · CUENTA CENTRALIZADA</text>
+<rect x='95' y='647' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='90' y='640' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='90' y='640' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='110' y='685.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>ClaimsUsuario</text>
+<text x='110' y='718.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>usuarios.AspNetUserClaims</text>
+<text x='110' y='748.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>IDENTITY</text>
+<rect x='95' y='857' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='90' y='850' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='90' y='850' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='110' y='895.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>LoginsExternosUsuario</text>
+<text x='110' y='928.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>usuarios.AspNetUserLogins</text>
+<text x='110' y='958.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>IDENTITY · GOOGLE Y OTROS</text>
+<rect x='95' y='1067' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='90' y='1060' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='90' y='1060' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='110' y='1105.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>TokensIdentityUsuario</text>
+<text x='110' y='1138.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>usuarios.AspNetUserTokens</text>
+<text x='110' y='1168.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>IDENTITY · ALMACÉN INTERNO</text>
+<rect x='625' y='1247' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='620' y='1240' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='620' y='1240' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='640' y='1285.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>SesionesUsuario</text>
+<text x='640' y='1318.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.SesionesUsuario</text>
+<text x='640' y='1348.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>DOMINIO · HISTORIAL DE SESIONES</text>
+<rect x='625' y='1497' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='620' y='1490' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='620' y='1490' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='640' y='1535.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>TokensSesionUsuario</text>
+<text x='640' y='1568.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.TokensSesionUsuario</text>
+<text x='640' y='1598.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#2563AB'>DOMINIO · EMISIÓN Y RENOVACIÓN</text>
+<rect x='1245' y='397' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1240' y='390' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1240' y='390' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1260' y='435.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Aplicaciones</text>
+<text x='1260' y='468.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.Aplicaciones</text>
+<text x='1260' y='498.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>DOMINIO · APLICACIÓN CLIENTE</text>
+<rect x='1775' y='397' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1770' y='390' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1770' y='390' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1790' y='435.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>CredencialesAplicacion</text>
+<text x='1790' y='468.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.CredencialesAplicacion</text>
+<text x='1790' y='498.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>INTEGRACIÓN</text>
+<rect x='1775' y='647' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1770' y='640' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1770' y='640' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1790' y='685.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>EndpointsNotificacion</text>
+<text x='1790' y='718.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.EndpointsNotificacion</text>
+<text x='1790' y='748.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>INTEGRACIÓN · ENDPOINT OPCIONAL</text>
+<rect x='1245' y='857' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1240' y='850' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1240' y='850' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1260' y='895.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>AsignacionesAcceso</text>
+<text x='1260' y='928.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.AsignacionesAcceso</text>
+<text x='1260' y='958.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>DOMINIO · USUARIO + APLICACIÓN</text>
+<rect x='1775' y='857' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1770' y='850' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1770' y='850' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1790' y='895.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Notificaciones</text>
+<text x='1790' y='928.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.Notificaciones</text>
+<text x='1790' y='958.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>INTEGRACIÓN · BANDEJA DE SALIDA</text>
+<rect x='1775' y='1247' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1770' y='1240' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1770' y='1240' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1790' y='1282.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#172B45'>IntentosEntregaNotificacion</text>
+<text x='1790' y='1318.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.IntentosEntregaNotificacion</text>
+<text x='1790' y='1348.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#087F8C'>INTEGRACIÓN · HISTORIAL DE ENTREGAS</text>
+<rect x='2405' y='397' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='390' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='390' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='435.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Administradores</text>
+<text x='2420' y='468.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>administracion.AspNetUsers</text>
+<text x='2420' y='498.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>IDENTITY · CUENTA INDEPENDIENTE</text>
+<rect x='2405' y='647' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='640' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='640' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='685.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>ClaimsAdministrador</text>
+<text x='2420' y='718.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>administracion.AspNetUserClaims</text>
+<text x='2420' y='748.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>IDENTITY</text>
+<rect x='2405' y='857' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='850' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='850' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='892.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#172B45'>LoginsExternosAdministrador</text>
+<text x='2420' y='928.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>administracion.AspNetUserLogins</text>
+<text x='2420' y='958.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>IDENTITY</text>
+<rect x='2405' y='1067' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='1060' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='1060' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='1102.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#172B45'>TokensIdentityAdministrador</text>
+<text x='2420' y='1138.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>administracion.AspNetUserTokens</text>
+<text x='2420' y='1168.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>IDENTITY · ALMACÉN INTERNO</text>
+<rect x='2405' y='1247' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='1240' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='1240' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='1285.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>SesionesAdministrativas</text>
+<text x='2420' y='1318.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.SesionesAdministrativas</text>
+<text x='2420' y='1348.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>DOMINIO · HISTORIAL ADMINISTRATIVO</text>
+<rect x='2405' y='1497' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2400' y='1490' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2400' y='1490' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2420' y='1532.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#172B45'>TokensSesionAdministrativa</text>
+<text x='2420' y='1568.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.TokensSesionAdministrativa</text>
+<text x='2420' y='1598.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#8056AD'>SOLO SI ADMINISTRACIÓN USA TOKENS</text>
+<rect x='290' y='590' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='300' y='615.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>1 : 0..N</text>
+<rect x='290' y='800' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='300' y='825.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>1 : 0..N</text>
+<rect x='290' y='1010' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='300' y='1035.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>1 : 0..N</text>
+<rect x='1125' y='785' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1135' y='810.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..N</text>
+<rect x='1385' y='650' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1395' y='675.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..N</text>
+<rect x='766' y='1145' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='776' y='1170.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>1 : 0..N</text>
+<rect x='766' y='1400' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='776' y='1425.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>1 : 0..N</text>
+<rect x='1780' y='335' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1790' y='360.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..N</text>
+<rect x='1780' y='590' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1790' y='615.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..1</text>
+<rect x='1780' y='800' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1790' y='825.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..N</text>
+<rect x='1916' y='1090' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1926' y='1115.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#087F8C'>1 : 0..N</text>
+<rect x='2685' y='590' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2695' y='615.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#8056AD'>1 : 0..N</text>
+<rect x='2685' y='800' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2695' y='825.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#8056AD'>1 : 0..N</text>
+<rect x='2685' y='1010' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2695' y='1035.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#8056AD'>1 : 0..N</text>
+<rect x='2350' y='1180' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2360' y='1205.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#8056AD'>1 : 0..N</text>
+<rect x='2546' y='1400' width='128' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2556' y='1425.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#8056AD'>1 : 0..N</text>
+<text x='1195' y='1531.2' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#52647C'>Un usuario puede acceder a varias aplicaciones mediante asignaciones.</text>
+<text x='1195' y='1571.2' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='400' fill='#52647C'>Una sola asignación por combinación usuario + aplicación.</text>
+<text x='90' y='1692.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#2563AB'>Máximo una sesión activa por cuenta de usuario en todo el ecosistema.</text>
+<text x='2310' y='1691.2' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='700' fill='#8056AD'>Máximo una sesión administrativa activa por administrador.</text>
+<rect x='60' y='1810' width='3240' height='725' fill='#FFFCF6' stroke='#EDDFC4' stroke-width='2'/>
+<text x='90' y='1864.62' font-family='Segoe UI,Arial,sans-serif' font-size='27' font-weight='700' fill='#B87815'>04  AUDITORÍA Y TRAZABILIDAD</text>
+<text x='90' y='1906.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#71634D'>Los recuadros de referencia repiten tablas de la vista principal; no agregan tablas nuevas.</text>
+<polyline points='500,2028 500,2090 1575,2090 1575,2160' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='295' y='1947' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='290' y='1940' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='290' y='1940' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='310' y='1985.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Usuarios</text>
+<text x='310' y='2013.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<text x='360' y='2061.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#71634D'>Actor / entidad afectada</text>
+<polyline points='1680,2028 1680,2090 1630,2090 1630,2160' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='1475' y='1947' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1470' y='1940' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1470' y='1940' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='1490' y='1985.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Aplicaciones</text>
+<text x='1490' y='2013.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<text x='1540' y='2061.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#71634D'>Actor / entidad afectada</text>
+<polyline points='2860,2028 2860,2090 1685,2090 1685,2160' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='2655' y='1947' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2650' y='1940' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2650' y='1940' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2670' y='1985.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Administradores</text>
+<text x='2670' y='2013.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<text x='2720' y='2061.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#71634D'>Actor / entidad afectada</text>
+<rect x='1990' y='2095' width='290' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='2000' y='2120.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#B87815'>0..1 : 0..N por relación</text>
+<rect x='1425' y='2167' width='420' height='126' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1420' y='2160' width='420' height='126' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1420' y='2160' width='420' height='8' fill='#B87815' stroke='#B87815' stroke-width='1'/>
+<text x='1440' y='2205.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>EventosAuditoria</text>
+<text x='1440' y='2238.14' font-family='Segoe UI,Arial,sans-serif' font-size='19' font-weight='400' fill='#475569'>dike.EventosAuditoria</text>
+<text x='1440' y='2268.9' font-family='Segoe UI,Arial,sans-serif' font-size='15' font-weight='700' fill='#B87815'>DOMINIO · HISTORIAL INMUTABLE</text>
+<text x='90' y='2172.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#71634D'>Dos vínculos distintos por cuenta o aplicación:</text>
+<text x='90' y='2207.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#71634D'>quién origina el evento y qué entidad resulta afectada.</text>
+<text x='2350' y='2172.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#71634D'>Un proceso interno o intento fallido</text>
+<text x='2350' y='2207.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='400' fill='#71634D'>puede no tener un actor identificado.</text>
+<polyline points='300,2400 300,2310 1490,2310 1490,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='95' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='90' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='90' y='2400' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='110' y='2445.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>AsignacionesAcceso</text>
+<text x='110' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<polyline points='835,2400 835,2319 1546,2319 1546,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='630' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='625' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='625' y='2400' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='645' y='2445.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>SesionesUsuario</text>
+<text x='645' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<polyline points='1370,2400 1370,2328 1602,2328 1602,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='1165' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1160' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1160' y='2400' width='420' height='8' fill='#2563AB' stroke='#2563AB' stroke-width='1'/>
+<text x='1180' y='2445.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>TokensSesionUsuario</text>
+<text x='1180' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<polyline points='1905,2400 1905,2337 1658,2337 1658,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='1700' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='1695' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='1695' y='2400' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='1715' y='2445.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>SesionesAdministrativas</text>
+<text x='1715' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<polyline points='2440,2400 2440,2346 1714,2346 1714,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='2235' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2230' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2230' y='2400' width='420' height='8' fill='#8056AD' stroke='#8056AD' stroke-width='1'/>
+<text x='2250' y='2442.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='700' fill='#172B45'>TokensSesionAdministrativa</text>
+<text x='2250' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<polyline points='2975,2400 2975,2355 1770,2355 1770,2286' fill='none' stroke='#B87815' stroke-width='2' stroke-linejoin='round' stroke-dasharray='9 7'/>
+<rect x='2770' y='2407' width='420' height='88' fill='#E8EDF4' stroke='#E8EDF4' stroke-width='1'/>
+<rect x='2765' y='2400' width='420' height='88' fill='#FFFFFF' stroke='#CBD5E1' stroke-width='2'/>
+<rect x='2765' y='2400' width='420' height='8' fill='#087F8C' stroke='#087F8C' stroke-width='1'/>
+<text x='2785' y='2445.5' font-family='Segoe UI,Arial,sans-serif' font-size='25' font-weight='700' fill='#172B45'>Notificaciones</text>
+<text x='2785' y='2473.08' font-family='Segoe UI,Arial,sans-serif' font-size='18' font-weight='400' fill='#64748B'>Referencia a la misma tabla</text>
+<rect x='1435' y='2337' width='290' height='36' fill='#FFFFFF' stroke='#E2E8F0' stroke-width='1'/>
+<text x='1445' y='2362.26' font-family='Segoe UI,Arial,sans-serif' font-size='21' font-weight='700' fill='#B87815'>0..1 : 0..N por relación</text>
+<text x='90' y='2601.2' font-family='Segoe UI,Arial,sans-serif' font-size='20' font-weight='700' fill='#3165A0'>ALCANCE DE ESTA IMAGEN</text>
+<text x='90' y='2643.44' font-family='Segoe UI,Arial,sans-serif' font-size='24' font-weight='400' fill='#52647C'>Propuesta base de 19 tablas. Roles y passkeys son ampliaciones condicionadas por la configuración de Identity.</text>
+<text x='90' y='2685.44' font-family='Segoe UI,Arial,sans-serif' font-size='24' font-weight='400' fill='#52647C'>Los tokens internos de Identity y los registros de tokens de sesión tienen responsabilidades diferentes.</text>
+<text x='90' y='2733.32' font-family='Segoe UI,Arial,sans-serif' font-size='22' font-weight='400' fill='#718096'>Fuente: docs/Mapa_Relacional.md  ·  Las cardinalidades incluyen registros históricos, no solo activos.</text>
+</svg>
